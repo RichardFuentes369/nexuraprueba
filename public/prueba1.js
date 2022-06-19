@@ -182,7 +182,6 @@ const guardarEmpleado = async () => {
     document.getElementsByClassName('inpErrorfullName')[0].style.visibility = 'hidden';
     hayError = false
   }
-
   if (!validarDato(2, document.getElementsByClassName('inpEmail')[0].value)) {
     document.getElementsByClassName('inpErrorEmail')[0].style.visibility = 'visible';
     hayError = true

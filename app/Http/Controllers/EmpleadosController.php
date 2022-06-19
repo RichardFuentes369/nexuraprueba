@@ -7,6 +7,7 @@ use App\Models\{
     empleado,
     empleado_rol
 };
+use Illuminate\Support\Facades\Validator;
 
 class EmpleadosController extends Controller
 {
@@ -19,6 +20,32 @@ class EmpleadosController extends Controller
     public function guardar(Request $request)
     {
         $nuevo_empleado = new empleado();
+
+        $rules = [
+            'fullName' => 'required|regex:/^[A-Za-z\s]+$/i',
+            'inpEmail' => 'required|regex:/(.+)@(.+)\.(.+)/i',
+            'inpDescription' => 'required',
+            'inpArea' => 'required|exists:App\Models\area,id',
+            'inpRoles' => 'required|exists:App\Models\rol,id',
+            'inpSexo' => 'required',
+        ];
+
+        $messages = [
+            'fullName.required' => 'El nombre es requerido',
+            'fullName.regex' => 'El nombre completo no debe tener caracteres especiales o numeros (solo puede tener espacios)',
+            'inpEmail.required' => 'Este campo de ir lleno',
+            'inpEmail.regex' => 'Debe escribir un correo valido',
+            'inpDescription.required' => 'Debe escribir una descripcion',
+            'inpArea.required' => 'Debe seleccionar un area',
+            'inpArea.exists' => 'Esta area no existe en nuestros registros',
+            'inpRoles.required' => 'Debe seleccionar un rol',
+
+            'inpSexo.required' => 'Debe seleccionar un sexo',
+        ];
+
+        $this->validate($request, $rules, $messages);
+
+
         $nuevo_empleado->nombre = $request->fullName;
         $nuevo_empleado->email = $request->inpEmail;
         $nuevo_empleado->sexo = $request->inpSexo;
