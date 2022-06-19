@@ -154,11 +154,36 @@ const listarRoles = async () => {
 }
 
 /*Abro modal*/
-const openModal = async () => {
+const openModal = async (opc, empleadoId) => {
   await limpiar()
   await listarAreas()
   await listarRoles()
   await $(`#exampleModal`).modal('show')
+
+  if (opc == 1) {
+    $(".modal-title").text('Crear Empleado');
+    $('.btnGuardar').css('display', 'block')
+    $('.btnEditar').css('display', 'none')
+  } else {
+    let empleadoActualizar = ''
+    $(".modal-title").text('Actualizar Empleado');
+    $('.btnGuardar').css('display', 'none')
+    $('.btnEditar').css('display', 'block')
+
+    empleadoActualizar = empleadosList.find(emp => emp.id == empleadoId)
+
+    model.fullName = empleadoActualizar.nombre
+    model.inpEmail = empleadoActualizar.email
+    model.inpSexo = empleadoActualizar.sexo
+    model.inpArea = empleadoActualizar.area_id
+    model.inpRoles = empleadoActualizar.area_trabajo
+    model.inpDescription = empleadoActualizar.descripcion
+
+    document.getElementsByClassName('inpfullName')[0].value = model.fullName
+    document.getElementsByClassName('inpEmail')[0].value = model.inpEmail
+    document.getElementsByClassName('inpArea')[0].value = model.inpArea
+    document.getElementsByClassName('inpDescription')[0].value = model.inpDescription
+  }
 }
 
 /*Cierro modal*/
@@ -231,6 +256,11 @@ const guardarEmpleado = async () => {
   }
 }
 
+/*Editar empleado, validado con expresion regular*/
+const editarEmpleado = async () => {
+  console.log('editando....')
+}
+
 $('.previous').click(function () {
   if (paginador.page > 1) {
     paginador.page = paginador.page - 1
@@ -275,7 +305,9 @@ const listarEmpleados = async () => {
         <td>${empleado.area_trabajo.nombre}</td>
         <td>${empleado.boletin}</td>
         <td>
-          <button>modificar</button>
+          <button onclick="limpiar(), openModal(2, ${empleado.id})">
+            Modificar
+          </button>
         </td>
         <td>
           <button onclick="eliminarEmpleado(${empleado.id})">
