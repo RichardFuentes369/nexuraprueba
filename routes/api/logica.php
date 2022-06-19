@@ -8,7 +8,7 @@ use App\Http\Controllers\RolController;
 Route::group(['prefix' => 'empleados'], function () {
     Route::get("lista-emapleados/{page?}/{perPage?}/{orderBy?}", [EmpleadosController::class, 'lista']);
     Route::post("guardar-emapleados", [EmpleadosController::class, 'guardar']);
-    Route::post("editar-emapleados", [EmpleadosController::class, 'editar']);
+    Route::put("editar-emapleados", [EmpleadosController::class, 'editar']);
     Route::delete("eliminar-emapleado/{idEmpleado}", [EmpleadosController::class, 'eliminar']);
 });
 

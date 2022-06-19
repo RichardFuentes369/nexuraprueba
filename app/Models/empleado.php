@@ -16,4 +16,9 @@ class empleado extends Model
     {
         return $this->belongsTo(area::class, 'area_id');
     }
+
+    public function misRoles()
+    {
+        return $this->hasMany(empleado_rol::class);;
+    }
 }
