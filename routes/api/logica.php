@@ -6,10 +6,10 @@ use App\Http\Controllers\AreaController;
 use App\Http\Controllers\RolController;
 
 Route::group(['prefix' => 'empleados'], function () {
-    Route::get("lista-emapleados", [EmpleadosController::class, 'lista']);
+    Route::get("lista-emapleados/{page?}/{perPage?}/{orderBy?}", [EmpleadosController::class, 'lista']);
     Route::post("guardar-emapleados", [EmpleadosController::class, 'guardar']);
     Route::post("editar-emapleados", [EmpleadosController::class, 'editar']);
-    Route::post("eliminar-emapleados", [EmpleadosController::class, 'eliminar']);
+    Route::delete("eliminar-emapleado/{idEmpleado}", [EmpleadosController::class, 'eliminar']);
 });
 
 

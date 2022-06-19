@@ -57,14 +57,14 @@
                         <div class="col-sm">
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                    id="flexRadioDefault1">
+                                    id="inpSexoMasculino">
                                 <label class="form-check-label" for="flexRadioDefault1">
                                     Masculino
                                 </label>
                             </div>
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                    id="flexRadioDefault2" checked>
+                                    id="inpSexoFemenino" checked>
                                 <label class="form-check-label" for="flexRadioDefault2">
                                     Femenino
                                 </label>
@@ -109,6 +109,44 @@
             </div>
         </div>
     </div>
+
+    <select name="" id="" class="order" onchange="cambiarOrdenListar()">
+        <option value="asc">Asc</option>
+        <option value="desc">Desc</option>
+    </select>
+
+    <select name="" id="" class="perPage" onchange="cambiarCantidadListar()">
+        <option value="5">5</option>
+        <option value="10">10</option>
+        <option value="15">15</option>
+        <option value="20">20</option>
+        <option value="25">25</option>
+        <option value="30">30</option>
+    </select>
+
+    <table class="table mt-4">
+        <thead>
+            <tr>
+                <th scope="col">Nombre</th>
+                <th scope="col">Email</th>
+                <th scope="col">Sexo</th>
+                <th scope="col">Área</th>
+                <th scope="col">Boletin</th>
+                <th scope="col">Modificar</th>
+                <th scope="col">Eliminar</th>
+            </tr>
+        </thead>
+        <tbody class="tbody">
+        </tbody>
+    </table>
+
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            <li class="page-item previous"><a class="page-link" style="cursor: pointer">Anterior</a></li>
+            <li class="page-item next"><a class="page-link" style="cursor: pointer">Siguiente</a></li>
+        </ul>
+    </nav>
+
     <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">

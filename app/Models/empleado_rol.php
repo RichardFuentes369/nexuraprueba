@@ -5,15 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class empleado extends Model
+class empleado_rol extends Model
 {
     use HasFactory;
 
-    protected $table = "empleado";
+    protected $table = "empleado_rol";
     public $timestamps = false;
-
-    public function areaTrabajo()
-    {
-        return $this->belongsTo(area::class, 'area_id');
-    }
 }
