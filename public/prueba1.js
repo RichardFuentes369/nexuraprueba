@@ -7,12 +7,18 @@ let model = {
   inpDescription: ''
 }
 
+// guardo las areas
 let areas = []
+// guardo los roles
 let roles = []
+// contador de roles traidos del servidor
 let cantidadRoles = 0
+// roles que selecciono para guardar en bd
 let rolesSeleccionados = []
 
-/*Expresiones regulares*/
+/*
+  * Funcion que me permite validar las expresiones regulares del formulario
+*/
 const validarDato = (opcion, dato) => {
   let validarTexto = /^[A-Za-z\s]+$/;
   let validarNumeros = /^[0-9]+$/;
@@ -52,8 +58,14 @@ const validarDato = (opcion, dato) => {
   }
 }
 
-/*Limpiar Modal*/
-const limpiar = () => {
+/*
+  * Funcion que me permite limpiar
+  * los errores y inputs
+  * lo que envio al servidor
+  * los roles seleccionados
+  * los roles y areas que recibo del servidor
+*/
+const limpiar = async () => {
   console.log('limpiando ....')
   // limpio el modelo
   model = {
@@ -74,7 +86,6 @@ const limpiar = () => {
   // limpio los inputs
   document.getElementsByClassName('inpfullName')[0].value = '';
   document.getElementsByClassName('inpEmail')[0].value = '';
-  console.log('falta limpiar el select')
   document.getElementsByClassName('inpDescription')[0].value = '';
 
   // limpio los errores
@@ -82,14 +93,24 @@ const limpiar = () => {
   document.getElementsByClassName('inpErrorEmail')[0].style.visibility = 'hidden';
   document.getElementsByClassName('inpErrorDescription')[0].style.visibility = 'hidden';
   document.getElementsByClassName('inpErrorArea')[0].style.visibility = 'hidden';
+  document.getElementsByClassName('inpErrorRol')[0].style.visibility = 'hidden';
+
 }
 
-/*Listo Areas para llenar el modal*/
+/*
+  * Limpio el append
+  * Listo Areas para llenar el modal
+  * Funcion que me permite listar las areas del servidor
+  * se invoca cunado el modal se abre
+*/
 const listarAreas = async () => {
   await axios.get(`/api/areas/lista-areas`).then(res => {
     areas = res.data
   })
-
+  $('.listaAreas').empty();
+  $('.listaAreas').append(`
+    <option value="0">Seleccione</option>
+  `)
   for (const area of areas) {
     $('.listaAreas').append(`
       <option value="${area.id}">${area.nombre}</option>
@@ -97,7 +118,12 @@ const listarAreas = async () => {
   }
 }
 
-/*Listo Roles para llenar el modal*/
+/*
+  * Limpio el append
+  * Listo Areas para llenar el modal
+  * Funcion que me permite listar los roles del servidor
+  * se invoca cunado el modal se abre
+*/
 const listarRoles = async () => {
   await axios.get(`/api/roles/lista-roles`).then(res => {
     roles = res.data
@@ -105,6 +131,7 @@ const listarRoles = async () => {
 
   cantidadRoles = roles.length
 
+  $('.listaRoles').empty();
   for (const rol of roles) {
     $('.listaRoles').append(`
       <div class="form-check">
@@ -119,6 +146,7 @@ const listarRoles = async () => {
 
 /*Abro modal*/
 const openModal = async () => {
+  await limpiar()
   await listarAreas()
   await listarRoles()
   await $(`#exampleModal`).modal('show')

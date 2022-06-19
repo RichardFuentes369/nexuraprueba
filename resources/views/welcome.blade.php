@@ -77,7 +77,6 @@
                         </div>
                         <div class="col-sm">
                             <select name="" id="" class="inpArea form-control listaAreas">
-                                <option value="0">-----------</option>
                             </select>
                             <span class="inpErrorArea text-danger" style="visibility: hidden">Error: Debe seleccionar un
                                 elemento de la lista</span>
